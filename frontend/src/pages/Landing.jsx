@@ -24,7 +24,7 @@ export default function Landing() {
           <span className="font-semibold tracking-tight">CodeBase Explainer</span>
         </div>
         <a
-          href="http://localhost:5000/auth/google"
+          href={`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/auth/google`}
           className="px-4 py-1.5 text-sm bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition-colors font-medium"
         >
           Sign in
@@ -44,7 +44,7 @@ export default function Landing() {
         </p>
 
         <a
-          href="http://localhost:5000/auth/google"
+          href={`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/auth/google`}
           className="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-medium transition-colors mb-20 text-sm"
         >
           Get started free →

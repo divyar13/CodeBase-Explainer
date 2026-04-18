@@ -28,7 +28,7 @@ export default function Login() {
           <p className="text-zinc-500 text-center text-sm mb-8">Sign in to analyze repositories</p>
 
           <a
-            href="http://localhost:5000/auth/google"
+            href={`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/auth/google`}
             className="flex items-center justify-center gap-3 w-full px-4 py-3 bg-white hover:bg-zinc-100 text-zinc-900 rounded-xl font-medium transition-colors text-sm"
           >
             <svg width="16" height="16" viewBox="0 0 24 24">
