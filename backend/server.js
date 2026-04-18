@@ -8,6 +8,7 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 import express from 'express';
 import cors from 'cors';
 import session from 'express-session';
+import MongoStore from 'connect-mongo';
 import passport from 'passport';
 import { connectDB } from './config/db.js';
 
@@ -36,6 +37,7 @@ async function startServer() {
     secret: process.env.SESSION_SECRET || 'your-secret-key',
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
     cookie: {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
