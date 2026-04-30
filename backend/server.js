@@ -20,7 +20,7 @@ async function startServer() {
 
   const app = express();
 
-  connectDB();
+  const dbConnected = await connectDB();
 
   const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:3000').split(',').map(o => o.trim());
   app.use(cors({
@@ -33,17 +33,24 @@ async function startServer() {
   app.use(express.json());
   app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
-  app.use(session({
+  const sessionConfig = {
     secret: process.env.SESSION_SECRET || 'your-secret-key',
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
     cookie: {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       maxAge: 24 * 60 * 60 * 1000
     }
-  }));
+  };
+
+  if (dbConnected) {
+    const store = MongoStore.create({ mongoUrl: process.env.MONGODB_URI });
+    store.on('error', (err) => console.warn('⚠️  Session store error:', err.message));
+    sessionConfig.store = store;
+  }
+
+  app.use(session(sessionConfig));
 
   app.use(passport.initialize());
   app.use(passport.session());
