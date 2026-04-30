@@ -33,8 +33,8 @@ export const analyzeRepository = async (readmeContent, packageJsonContent, fileT
   try {
     const prompt = buildAnalysisPrompt(readmeContent, packageJsonContent, fileTree);
 
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+    const genAI = new GoogleGenerativeAI((process.env.GEMINI_API_KEY || '').trim());
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
     const result = await model.generateContent(prompt);
     const responseText = result.response.text();
 
@@ -47,6 +47,6 @@ export const analyzeRepository = async (readmeContent, packageJsonContent, fileT
     return analysis;
   } catch (error) {
     console.error('Error analyzing with Gemini:', error.message);
-    throw new Error('Failed to analyze repository with AI');
+    throw new Error(`Failed to analyze repository with AI: ${error.message}`);
   }
 };
