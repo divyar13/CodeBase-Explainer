@@ -34,7 +34,7 @@ export const analyzeRepository = async (readmeContent, packageJsonContent, fileT
     const prompt = buildAnalysisPrompt(readmeContent, packageJsonContent, fileTree);
 
     const genAI = new GoogleGenerativeAI((process.env.GEMINI_API_KEY || '').trim());
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
     const result = await model.generateContent(prompt);
     const responseText = result.response.text();
 
