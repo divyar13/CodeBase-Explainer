@@ -147,7 +147,7 @@ export const explainFile = async (req, res) => {
 
     const { GoogleGenerativeAI } = await import('@google/generative-ai');
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-flash-latest' });
 
     const prompt = `You are a code expert. Explain this code file in plain English, focusing on what it does and how it works. Keep it concise and avoid unnecessary jargon.
 
