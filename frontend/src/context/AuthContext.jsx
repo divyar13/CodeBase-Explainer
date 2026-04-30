@@ -16,9 +16,8 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('token', urlToken);
       setToken(urlToken);
       window.history.replaceState({}, document.title, window.location.pathname);
-    }
-
-    if (token) {
+      fetchUser(urlToken);
+    } else if (token) {
       fetchUser(token);
     } else {
       setLoading(false);
